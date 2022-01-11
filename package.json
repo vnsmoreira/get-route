@@ -5,9 +5,7 @@
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.17.2",
+    "puppeteer": "^13.0.1",
     "puppeteer-cluster": "^0.22.0"
-  },
-  "devDependencies": {
-    "nodemon": "^2.0.15"
   }
 }
