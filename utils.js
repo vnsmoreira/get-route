@@ -14,9 +14,9 @@ const getDistance = async (page, origin, destination) => {
     const distance = await page.$eval(distanceSelector, el => el.innerText);
     page.close();
 
-    return { status: 'OK', distance: formatDistance(distance) };
+    return { OK: true, distance: formatDistance(distance) };
   } catch (error) {
-    return { status: 'ERROR' };
+    return { OK: false };
   }
 };
 
