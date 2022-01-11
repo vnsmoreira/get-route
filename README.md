@@ -4,8 +4,9 @@ A simple and free API to get distance between two addresses
 
 ## Setup
 
-Download or clone this repository.
-Install dependencies and run locally using:
+### Running Localy
+
+Clone this repository and then run:
 
     npm i
     npm start
@@ -25,31 +26,27 @@ The requisition only requires **origin** and **destination** parameters
 
 
     http://localhost:3000/04414000/04335000
-#### Response 
+### Response 
 
 ````javascript
 {
-   "status": "OK",
-   "distance": 1.7,
-   "origin": "R. Rolando Curti - Vila Clara, São Paulo - SP, 04414-000",
-   "destination": "R. Leno - Americanópolis, São Paulo - SP, 04335-000"
+   "OK": true,
+   "distance": 1.7
 }
 ````
 
     
-    
+<br></br>
 ##  Response fields
 
-**Status**: returns "OK" if succeed or "ERROR" if fail.
+**OK**: returns true if succeed or false if fail.
 
-**Distance**: returns the distance **in kilometers** between *origin* and *destination*.
-
-**Origin**: returns found origin.
-
-**Destination**: returns found destination.
+**Distance**: returns the distance **always in kilometers** between *origin* and *destination*.
 
 
-## Using AXIOS
+<br></br>
+## Example
+### Using AXIOS
 ````javascript
 let origin = "Avenida Cupece, Americanopolis";
 let destination = "Avenida Santo Amaro, Santo Amaro";
@@ -60,6 +57,8 @@ axios.get(`http://localhost/${origin}/${destination}`).then(response  => {
 });
 ````
 
+
+<br></br>
 ## How it works?
 
 **Step 1**: The app initializes a browser in background and await for a requisition.
