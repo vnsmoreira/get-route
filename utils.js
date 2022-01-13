@@ -7,8 +7,14 @@ const formatDistance = distance => {
   return isDistanceInMeters ? parseFloat(stringDistance) / 1000 : parseFloat(stringDistance);
 };
 
-const scrapeDistance = async (page, addresses) => {
-  let query = `${addresses.join('/')}`;
+const mountQuery = (addresses, region) => {
+  let query = `${region}+${addresses.join('/')}`;
+
+  return query;
+};
+
+const scrapeDistance = async (page, addresses, region) => {
+  let query = mountQuery(addresses, region);
   let url = `https://www.google.com/maps/dir/${query}`;
 
   let distanceSelector = '.xB1mrd-T3iPGc-iSfDt-tUvA6e > div:nth-child(3)';
@@ -24,10 +30,11 @@ const scrapeDistance = async (page, addresses) => {
   }
 };
 
-const getDistance = async ({ page, data: addresses }) => {
-  setRequestInterception(page);
+const getDistance = async ({ page, data }) => {
+  setRequestInterception(page); /* do not load images, fonts or style */
 
-  return scrapeDistance(page, addresses);
+  let { addresses, region } = data;
+  return scrapeDistance(page, addresses, region);
 };
 
 /* 
