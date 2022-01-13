@@ -1,3 +1,5 @@
+const { setRequestInterception } = require('./puppeteer-utils');
+
 const formatDistance = distance => {
   let stringDistance = distance.toString().replace(',', '.');
   let isDistanceInMeters = stringDistance.indexOf(' m') > -1;
@@ -20,4 +22,19 @@ const getDistance = async (page, origin, destination) => {
   }
 };
 
-module.exports = { getDistance };
+const distanceBetweenTwoAdressess = async ({ page, data }) => {
+  setRequestInterception(page);
+
+  let { origin, destination } = data;
+  return getDistance(page, origin, destination);
+};
+
+const distanceBetweenMultipleAdressess = async ({ page, data }) => {
+  setRequestInterception(page);
+
+  let { origins, destinations, region } = data;
+
+  return getDistance(page, origin, destination);
+};
+
+module.exports = { distanceBetweenTwoAdressess, distanceBetweenMultipleAdressess };
