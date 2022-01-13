@@ -1,4 +1,4 @@
-const { setRequestInterception } = require('./puppeteer-utils');
+const { setRequestInterception } = require('./puppeteer-config');
 
 const formatDistance = distance => {
   let stringDistance = distance.toString().replace(',', '.');

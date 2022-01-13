@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const { Cluster } = require('puppeteer-cluster');
-const { puppeteerOptions } = require('./puppeteer-utils');
-const { getDistance } = require('./utils');
+const { puppeteerOptions } = require('./puppeteer-config');
+const { getDistance } = require('./scrape');
 
 (async () => {
   const cluster = await Cluster.launch({
@@ -34,7 +34,7 @@ const { getDistance } = require('./utils');
       let params = Object.values(req.params);
       let region = params.slice(2);
       let addresses = params.slice(0, 2);
-      
+
       let response = await cluster.execute({ addresses, region }, getDistance);
 
       res.send(response);
