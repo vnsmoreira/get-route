@@ -24,7 +24,6 @@ const scrapeDistance = async (page, addresses, region) => {
   try {
     await page.goto(url);
 
-    console.log(url);
     const distance = await page.$eval(distanceSelector, el => el.innerText);
     page.close();
 
@@ -45,7 +44,7 @@ const getDistance = async ({ page, data }) => {
 
 adicionar funcao de remover espacos e %20 da requisicao
 
-arrumaar documentacao
+arrumar documentacao
 */
 
 module.exports = { getDistance };
