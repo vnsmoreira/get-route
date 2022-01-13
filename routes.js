@@ -32,7 +32,7 @@ const { getDistance } = require('./utils');
   router.get('/:origin/:destination/:region', async (req, res) => {
     try {
       let params = Object.values(req.params);
-
+      console.log(params)
       let region = params[params.length - 1];
       let addresses = params.slice(0, 2);
 
