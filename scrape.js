@@ -17,22 +17,37 @@ const formatDistance = distance => {
 };
 
 const mountQuery = (addresses, region) => {
-  let query = `${region}+${addresses.join('/')}`;
+  let addressesQuery = addresses.join('/');
+  let query = `${region}+${addressesQuery}`;
 
   return query;
 };
 
-const scrapeDistance = async (page, addresses, region) => {
-  let travelmode = 'data=!4m2!4m1!3e0';
-  let query = mountQuery(addresses, region);
-  let url = `https://www.google.com/maps/dir/${query}/${travelmode}`;
+const scrapeDistance = async (page, addresses, region, mode = 'driving') => {
+  const travelModes = {
+    driving() {
+      return {
+        travelMode: 'data=!4m2!4m1!3e0',
+        distanceSelector:
+          '#section-directions-trip-0 > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(3)',
+      };
+    },
+    walking() {
+      return {
+        travelMode: 'data=!4m2!4m1!3e2',
+        distanceSelector:
+          '#section-directions-trip-0 > div:nth-child(2) > div:nth-child(3) > div:nth-child(1) > div:nth-child(2)',
+      };
+    },
+  };
 
-  let distanceSelector =
-    '#section-directions-trip-0 > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(3)';
+  let { travelMode, distanceSelector } = travelModes[mode]();
+  let query = mountQuery(addresses, region);
+  let url = `https://www.google.com/maps/dir/${query}/${travelMode}`;
 
   try {
     await page.goto(url);
-
+    console.log(url);
     const distance = await page.$eval(distanceSelector, el => el.innerText);
     page.close();
 
@@ -45,9 +60,8 @@ const scrapeDistance = async (page, addresses, region) => {
 const getDistance = async ({ page, data }) => {
   setRequestInterception(page); /* do not load images, fonts or style */
 
-  let { addresses, region } = data;
-  return scrapeDistance(page, addresses, region);
+  let { addresses, region, mode } = data;
+  return scrapeDistance(page, addresses, region, mode);
 };
-
 
 module.exports = { getDistance };
