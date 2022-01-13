@@ -13,9 +13,9 @@ const getCluster = require('./puppeteer-config');
 
   router.post('/', async (req, res) => {
     try {
-      let { addresses, region } = req.body;
+      let { addresses, region, mode } = req.body;
 
-      let response = await cluster.execute({ addresses, region });
+      let response = await cluster.execute({ addresses, region, mode });
 
       res.send(response);
     } catch (err) {
@@ -26,10 +26,12 @@ const getCluster = require('./puppeteer-config');
   router.get('/:origin/:destination/:region', async (req, res) => {
     try {
       let params = Object.values(req.params);
+
+      let mode = req.query.mode;
       let region = params.slice(2);
       let addresses = params.slice(0, 2);
 
-      let response = await cluster.execute({ addresses, region });
+      let response = await cluster.execute({ addresses, region, mode });
 
       res.send(response);
     } catch (err) {
