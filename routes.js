@@ -18,6 +18,10 @@ const { puppeteerOptions, setRequestInterception } = require('./puppeteer-utils'
     return getDistance(page, origin, destination);
   });
 
+  router.get('/', (req, res) => {
+    res.send('How to use it: <a href="https://github.com/vnsmoreira/api-get-distance">API Documentation</a>');
+  });
+
   router.get('/:origin/:destination', async (req, res) => {
     try {
       let { origin, destination } = req.params;
@@ -28,8 +32,6 @@ const { puppeteerOptions, setRequestInterception } = require('./puppeteer-utils'
       res.send({ distance: `${err}` });
     }
   });
-
-  
 })();
 
 module.exports = router;
