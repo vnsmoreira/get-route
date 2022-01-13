@@ -1,15 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const { Cluster } = require('puppeteer-cluster');
-const { puppeteerOptions } = require('./puppeteer-config');
-const { getDistance } = require('./scrape');
+const getCluster = require('./puppeteer-config');
 
 (async () => {
-  const cluster = await Cluster.launch({
-    concurrency: Cluster.CONCURRENCY_PAGE,
-    maxConcurrency: 4,
-    puppeteerOptions,
-  });
+  const cluster = await getCluster();
 
   router.get('/', (req, res) => {
     res.send(
@@ -21,7 +15,7 @@ const { getDistance } = require('./scrape');
     try {
       let { addresses, region } = req.body;
 
-      let response = await cluster.execute({ addresses, region }, getDistance);
+      let response = await cluster.execute({ addresses, region });
 
       res.send(response);
     } catch (err) {
@@ -35,7 +29,7 @@ const { getDistance } = require('./scrape');
       let region = params.slice(2);
       let addresses = params.slice(0, 2);
 
-      let response = await cluster.execute({ addresses, region }, getDistance);
+      let response = await cluster.execute({ addresses, region });
 
       res.send(response);
     } catch (err) {

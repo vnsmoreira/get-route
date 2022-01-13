@@ -1,3 +1,6 @@
+const { Cluster } = require('puppeteer-cluster');
+const { getDistance } = require('./scrape');
+
 const puppeteerOptions = {
   args: [
     '--no-sandbox',
@@ -12,15 +15,16 @@ const puppeteerOptions = {
   headless: true,
 };
 
-const setRequestInterception = async page => {
-  await page.setRequestInterception(true);
-  page.on('request', request => {
-    if (['image', 'stylesheet', 'font'].indexOf(request.resourceType()) !== -1) {
-      request.abort();
-    } else {
-      request.continue();
-    }
+const getCluster = async () => {
+  let cluster = await Cluster.launch({
+    concurrency: Cluster.CONCURRENCY_PAGE,
+    maxConcurrency: 4,
+    puppeteerOptions,
   });
+
+  await cluster.task(getDistance);
+
+  return cluster;
 };
 
-module.exports = { puppeteerOptions, setRequestInterception };
+module.exports = getCluster;
