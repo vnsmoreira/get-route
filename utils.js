@@ -7,8 +7,10 @@ const formatDistance = distance => {
   return isDistanceInMeters ? parseFloat(stringDistance) / 1000 : parseFloat(stringDistance);
 };
 
-const getDistance = async (page, origin, destination) => {
-  let url = `https://www.google.com/maps/dir/?api=1&origin=${origin}&destination=${destination}&travelmode=driving`;
+const scrapeDistance = async (page, addresses) => {
+  let query = `${addresses.join('/')}`;
+  let url = `https://www.google.com/maps/dir/${query}`;
+
   let distanceSelector = '.xB1mrd-T3iPGc-iSfDt-tUvA6e > div:nth-child(3)';
 
   try {
@@ -22,19 +24,17 @@ const getDistance = async (page, origin, destination) => {
   }
 };
 
-const distanceBetweenTwoAdressess = async ({ page, data }) => {
+const getDistance = async ({ page, data: addresses }) => {
   setRequestInterception(page);
 
-  let { origin, destination } = data;
-  return getDistance(page, origin, destination);
+  return scrapeDistance(page, addresses);
 };
 
-const distanceBetweenMultipleAdressess = async ({ page, data }) => {
-  setRequestInterception(page);
+/* 
 
-  let { origins, destinations, region } = data;
+adicionar funcao de remover espacos e %20 da requisicao
 
-  return getDistance(page, origin, destination);
-};
+arrumaar documentacao
+*/
 
-module.exports = { distanceBetweenTwoAdressess, distanceBetweenMultipleAdressess };
+module.exports = {};
