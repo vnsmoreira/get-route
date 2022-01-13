@@ -1,4 +1,4 @@
-const { setRequestInterception } = require('./puppeteer-utils');
+const { setRequestInterception } = require('./puppeteer.config');
 
 const formatDistance = distance => {
   let stringDistance = distance.toString().replace(',', '.');
@@ -14,17 +14,13 @@ const mountQuery = (addresses, region) => {
 };
 
 const scrapeDistance = async (page, addresses, region) => {
-  let travelmode = 'data=!4m2!4m1!3e0';
   let query = mountQuery(addresses, region);
-  let url = `https://www.google.com/maps/dir/${query}/${travelmode}`;
+  let url = `https://www.google.com/maps/dir/${query}`;
 
-  let distanceSelector =
-    '#section-directions-trip-0 > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(3)';
+  let distanceSelector = '.xB1mrd-T3iPGc-iSfDt-tUvA6e > div:nth-child(3)';
 
   try {
     await page.goto(url);
-
-    console.log(url);
     const distance = await page.$eval(distanceSelector, el => el.innerText);
     page.close();
 
