@@ -1,4 +1,13 @@
-const { setRequestInterception } = require('./puppeteer-config');
+const setRequestInterception = async page => {
+  await page.setRequestInterception(true);
+  page.on('request', request => {
+    if (['image', 'stylesheet', 'font'].indexOf(request.resourceType()) !== -1) {
+      request.abort();
+    } else {
+      request.continue();
+    }
+  });
+};
 
 const formatDistance = distance => {
   let stringDistance = distance.toString().replace(',', '.');
@@ -40,11 +49,5 @@ const getDistance = async ({ page, data }) => {
   return scrapeDistance(page, addresses, region);
 };
 
-/* 
-
-adicionar funcao de remover espacos e %20 da requisicao
-
-arrumar documentacao
-*/
 
 module.exports = { getDistance };
