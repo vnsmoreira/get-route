@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { Cluster } = require('puppeteer-cluster');
 const { puppeteerOptions } = require('./puppeteer-utils');
-const distance = require('./utils');
+const { getDistance } = require('./utils');
 
 (async () => {
   const cluster = await Cluster.launch({
@@ -21,10 +21,7 @@ const distance = require('./utils');
     try {
       let { origins, destinations, region } = req.body;
 
-      let response = await cluster.execute(
-        { origins, destinations, region },
-        distance.distanceBetweenMultipleAdressess
-      );
+      let response = await cluster.execute({ origins, destinations, region }, getDistance);
 
       res.send(response);
     } catch (err) {
@@ -35,10 +32,7 @@ const distance = require('./utils');
   router.get('/:origin/:destination', async (req, res) => {
     try {
       let { origin, destination } = req.params;
-      let response = await cluster.execute(
-        { origin, destination },
-        distance.distanceBetweenTwoAdressess
-      );
+      let response = await cluster.execute({ origin, destination }, getDistance);
 
       res.send(response);
     } catch (err) {
