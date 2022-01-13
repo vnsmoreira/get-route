@@ -37,4 +37,4 @@ adicionar funcao de remover espacos e %20 da requisicao
 arrumaar documentacao
 */
 
-module.exports = {};
+module.exports = { getDistance };
