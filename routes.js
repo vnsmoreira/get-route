@@ -29,13 +29,7 @@ const { puppeteerOptions, setRequestInterception } = require('./puppeteer-utils'
     }
   });
 
-  /* keep puppeteer awake */
-  setInterval(async () => {
-    await cluster.execute({
-      origin: 'Rua Muzambinho. 04338000',
-      destination: 'Rolando Curti',
-    });
-  }, 2000);
+  
 })();
 
 module.exports = router;
