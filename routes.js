@@ -19,9 +19,9 @@ const { getDistance } = require('./utils');
 
   router.post('/', async (req, res) => {
     try {
-      let { origins, destinations, region } = req.body;
+      let { addresses, region } = req.body;
 
-      let response = await cluster.execute({ origins, destinations, region }, getDistance);
+      let response = await cluster.execute({ addresses, region }, getDistance);
 
       res.send(response);
     } catch (err) {
@@ -29,10 +29,14 @@ const { getDistance } = require('./utils');
     }
   });
 
-  router.get('/:origin/:destination', async (req, res) => {
+  router.get('/:origin/:destination/:region', async (req, res) => {
     try {
-      let { origin, destination } = req.params;
-      let response = await cluster.execute({ origin, destination }, getDistance);
+      let params = Object.values(req.params);
+
+      let region = params[params.length - 1];
+      let addresses = params.slice(0, 2);
+
+      let response = await cluster.execute({ addresses, region }, getDistance);
 
       res.send(response);
     } catch (err) {
