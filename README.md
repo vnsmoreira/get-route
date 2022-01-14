@@ -1,5 +1,5 @@
 # API Get Distance 
-A simple and free API to get distance between two addresses
+An easy-to-use and free API to calculate distance between multiple addresses
 
 
 ## Setup
@@ -11,53 +11,65 @@ Clone this repository and then run:
     npm i
     npm start
 
+### Deploying to Heroku (recommended)
+<a href="https://www.youtube.com/watch?v=Kl7mqpAK-bk&t=130s"> Deploy puppeteer API to Heroku</a>
+> Just replace "localhost:3000" for your heroku API link on the examples below
+
+<br></br>
+
+
 ## How to use
 
-### Getting distance 
-The requisition only requires **origin** and **destination** parameters
-		
-    http://localhost:3000/ORIGIN/DESTINATION
+> GET
 
-**Origin** example: "Street Abc, 1234. New York" or "04414000".
+    http://localhost:3000/ORIGIN/DESTINATION/REGION
 
-**Destination** example: “Street Def, 5678. Canada” or “04335000”.
-
-### Example
-
-
-    http://localhost:3000/04414000/04335000
+````javascript
+let origin = "Avenida Cupece, Americanopolis";
+let destination = "Avenida Santo Amaro, Santo Amaro";
+let region= "Sao Paulo";
+    
+axios.get(`http://localhost/${origin}/${destination}/${region}`).then(response  => {
+    console.log(response);
+    //do whatever you want
+});
+````
 ### Response 
-
 ````javascript
 {
    "OK": true,
-   "distance": 1.7
+   "distance": 8.2
 }
 ````
+<hr>
+<br></br>
 
+> POST
+
+    http://localhost:3000/
+
+````javascript
+let addresses = ['Rua Alvares Fagundes', 'Rolando Curti', 'Rua Liberalina'];
+let region = 'Sao Paulo';
     
+axios.post(`http://localhost`, { addresses, region }).then(response => {
+  console.log(response);
+  //do whatever you want
+});
+````
+### Response 
+````javascript
+{
+   "OK": true,
+   "distance": 2.7
+}
+````
 <br></br>
 ##  Response fields
 
 **OK**: returns true if succeed or false if fail.
 
-**Distance**: returns the distance **always in kilometers** between *origin* and *destination*.
-
-
-<br></br>
-## Example
-### Using AXIOS
-````javascript
-let origin = "Avenida Cupece, Americanopolis";
-let destination = "Avenida Santo Amaro, Santo Amaro";
-    
-axios.get(`http://localhost/${origin}/${destination}`).then(response  => {
-    console.log(response);
-    //do whatever you want
-});
-````
-
-
+**Distance?**: returns the distance **always in kilometers** between *origin* and *destination*.
 <br></br>
 ## How it works?
 
