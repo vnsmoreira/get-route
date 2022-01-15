@@ -75,9 +75,9 @@ axios.post(`http://localhost`, { addresses, region }).then(response => {
 <br></br>
 ## How it works?
 
-**Step 1**: The app initializes a browser in background and await for a requisition.
+**Step 1**: The server initializes puppeteer and await for a requisition.
 
-**Step 2**: When a requisition happens, the browser access  Google Maps passing *origin* and *destination* parameters.
+**Step 2**: When a requisition happens, puppeteer access google maps endpoint passing *origin* and *destination* parameters.
 
-**Step 3**: It captures the result data and returns to your API call.
+**Step 3**: It scrapes the distance and returns to your API call.
 
