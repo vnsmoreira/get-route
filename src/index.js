@@ -6,7 +6,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use(require('./routes.js'));
+require('./app/routes/distance.routes')(app);
 
 const port = process.env.PORT || 3000;
 
