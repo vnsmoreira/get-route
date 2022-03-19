@@ -23,7 +23,7 @@ const mountQuery = (addresses, region) => {
   return query;
 };
 
-const scrapeDistance = async (page, addresses, region, mode = 'driving') => {
+const scrapeDistance = async (page, addresses, region = '', mode = 'driving') => {
   const travelModes = {
     driving() {
       return {
@@ -47,7 +47,6 @@ const scrapeDistance = async (page, addresses, region, mode = 'driving') => {
 
   try {
     await page.goto(url);
-    console.log(url);
     const distance = await page.$eval(distanceSelector, el => el.innerText);
     page.close();
 

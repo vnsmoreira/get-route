@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "start": "node app.js"
+    "start": "nodemon src/index.js"
   },
   "dependencies": {
     "cors": "^2.8.5",

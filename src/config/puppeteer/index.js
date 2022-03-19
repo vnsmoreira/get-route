@@ -1,5 +1,5 @@
 const { Cluster } = require('puppeteer-cluster');
-const { getDistance } = require('./scrape');
+const { getDistance } = require('./task');
 
 const puppeteerOptions = {
   args: [
