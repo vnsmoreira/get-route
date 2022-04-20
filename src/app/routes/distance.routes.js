@@ -1,20 +1,10 @@
-const getCluster = require('../../config/puppeteer');
-const distanceController = require('../controllers/distanceController');
+const distanceController = require('../controllers/distance.controller');
 const { Router } = require('express');
 
 const router = Router();
 
-(async () => {
-  const cluster = await getCluster();
+router.post('/', distanceController.getDistance_POST);
 
-  router.post('/', (req, res) => {
-    distanceController.getDistance_POST(req, res, cluster);
-  });
-
-  router.get('/:addressA/:addressB', (req, res) => {
-    distanceController.getDistance_GET(req, res, cluster);
-  });
-  
-})();
+router.get('/:addressA/:addressB', distanceController.getDistance_GET);
 
 module.exports = app => app.use('/distance', router);
