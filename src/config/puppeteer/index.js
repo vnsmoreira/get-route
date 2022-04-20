@@ -42,16 +42,20 @@ const puppeteerOptions = {
   headless: true,
 };
 
-const getCluster = async () => {
-  let cluster = await Cluster.launch({
-    concurrency: Cluster.CONCURRENCY_PAGE,
-    maxConcurrency: 4,
-    puppeteerOptions,
-  });
+let cluster = null;
 
-  await cluster.task(getDistance);
+module.exports = {
+  initializeCluster: async () => {
+    cluster = await Cluster.launch({
+      concurrency: Cluster.CONCURRENCY_PAGE,
+      maxConcurrency: 4,
+      puppeteerOptions,
+    });
 
-  return cluster;
+    await cluster.task(getDistance);
+
+    return cluster;
+  },
+
+  getCluster: () => cluster,
 };
-
-module.exports = getCluster;

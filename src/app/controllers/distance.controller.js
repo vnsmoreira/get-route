@@ -1,6 +1,9 @@
 const controller = {};
+const { getCluster } = require('../../config/puppeteer');
 
-controller.getDistance_POST = async (req, res, cluster) => {
+const cluster = getCluster();
+
+controller.getDistance_POST = async (req, res) => {
   try {
     const { addresses } = req.body;
 
@@ -20,7 +23,7 @@ controller.getDistance_POST = async (req, res, cluster) => {
   }
 };
 
-controller.getDistance_GET = async (req, res, cluster) => {
+controller.getDistance_GET = async (req, res) => {
   try {
     let { addressA, addressB } = req.params;
 
