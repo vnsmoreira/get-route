@@ -16,14 +16,14 @@ const formatDistance = distance => {
   return isDistanceInMeters ? parseFloat(stringDistance) / 1000 : parseFloat(stringDistance);
 };
 
-const mountQuery = (addresses, region) => {
-  let addressesQuery = addresses.join('/');
-  let query = `${region}+${addressesQuery}`;
+const mountQuery = addresses => {
+  let templatedAddressesArray = addresses.map(address => `cep brazil ${address}`);
+  let query = templatedAddressesArray.join('/');
 
   return query;
 };
 
-const scrapeDistance = async (page, addresses, region = '', mode = 'driving') => {
+const scrapeDistance = async (page, addresses, mode = 'driving') => {
   const travelModes = {
     driving() {
       return {
@@ -42,7 +42,7 @@ const scrapeDistance = async (page, addresses, region = '', mode = 'driving') =>
   };
 
   let { travelMode, distanceSelector } = travelModes[mode]();
-  let query = mountQuery(addresses, region);
+  let query = mountQuery(addresses);
   let url = `https://www.google.com.br/maps/dir/${query}/${travelMode}`;
 
   try {
@@ -59,8 +59,8 @@ const scrapeDistance = async (page, addresses, region = '', mode = 'driving') =>
 const getDistance = async ({ page, data }) => {
   setRequestInterception(page); /* do not load images, fonts or style */
 
-  let { addresses, region, mode } = data;
-  return scrapeDistance(page, addresses, region, mode);
+  let { addresses, mode } = data;
+  return scrapeDistance(page, addresses, mode);
 };
 
 module.exports = { getDistance };
