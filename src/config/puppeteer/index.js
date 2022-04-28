@@ -49,11 +49,15 @@ let methods = {};
 methods.initializeCluster = async () => {
   cluster = await Cluster.launch({
     concurrency: Cluster.CONCURRENCY_PAGE,
-    maxConcurrency: 4,
+    maxConcurrency: 100,
     puppeteerOptions,
   });
 
   await cluster.task(getDistance);
+
+  await cluster.execute({ addresses: ['01311000', '04335000'] });
+
+  console.log('[app] cluster initialized')
 
   return cluster;
 };
