@@ -43,7 +43,7 @@ const scrapeDistance = async (page, addresses, mode = 'driving') => {
 
   let { travelMode, distanceSelector } = travelModes[mode]();
   let query = mountQuery(addresses);
-  let url = `https://www.google.com.br/maps/dir/${query}/${travelMode}`;
+  let url = `https://www.google.com/maps/dir/${query}/${travelMode}`;
 
   try {
     await page.goto(url);
