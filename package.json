@@ -3,6 +3,7 @@
     "start": "node src/index.js"
   },
   "dependencies": {
+    "axios": "^0.27.2",
     "cors": "^2.8.5",
     "express": "^4.17.2",
     "puppeteer": "^13.0.1",

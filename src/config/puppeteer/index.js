@@ -57,7 +57,7 @@ methods.initializeCluster = async () => {
 
   await cluster.execute({ addresses: ['01311000', '04335000'] });
 
-  console.log('[app] cluster initialized')
+  console.log('[app] cluster initialized');
 
   return cluster;
 };
