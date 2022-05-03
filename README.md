@@ -6,7 +6,7 @@
 
 > GET
 
-    https://api-get-distance.herokuapp.com/distance/CEP_ORIGIN/CEP_DESTINATION
+    https://distancep.herokuapp.com/distance/CEP_ORIGIN/CEP_DESTINATION
 
 ````javascript
 let origin = '04335-000';
@@ -59,7 +59,7 @@ const data = response.data;
 
 > POST
 
-    https://api-get-distance.herokuapp.com/distance/
+    https://distancep.herokuapp.com/distance/
 
 ````javascript
 let addresses = ['04335000', '01311-000', '05606010', '23812310'];
@@ -134,16 +134,27 @@ const data = response.data;
 
 <br></br>
 
-## Technologies used in this project
+## Technologies and APIs used in this project
+
+### Stack
+<ul>
+    <li>Node.js</li>
+    <li>Express.js</li>
+    <li>Puppeteer</li>
+    <li>Puppeteer-cluster</li>
+    <li>axios</li>
+</ul>
+
+### APIs
+<ul>
+    <li>viacep API</li>
+    <li>google maps (direct query)</li>
+    
+</ul>
 
 
 
-
-
-
-
-
-
+## Setup
 
 ### Running Localy
 
@@ -154,8 +165,3 @@ Clone this repository and then run:
 
 ### Deploying to Heroku
 <a href="https://www.youtube.com/watch?v=Kl7mqpAK-bk&t=130s"> Deploy puppeteer API to Heroku</a>
-> Just replace "localhost:3000" for your heroku API link on the examples below
-
-<br></br>
-
-
