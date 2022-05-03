@@ -1,7 +1,7 @@
 const setRequestInterception = async page => {
   await page.setRequestInterception(true);
   page.on('request', request => {
-    if (['image', 'stylesheet', 'font'].indexOf(request.resourceType()) !== -1) {
+    if (['image', 'stylesheet', 'font','xhr'].indexOf(request.resourceType()) !== -1) {
       request.abort();
     } else {
       request.continue();
