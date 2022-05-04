@@ -9,11 +9,10 @@
     https://distancep.herokuapp.com/distance/CEP_ORIGIN/CEP_DESTINATION
 
 ````javascript
-let origin = '04335-000';
-let destination = '01311000';
+const origin = '04335-000';
+const destination = '01311000';
 
-const response = await axios.get(`https://api-get-distance.herokuapp.com/distance/${origin}/${destination}`);
-const data = response.data;
+const {data} = await axios.get(`https://api-get-distance.herokuapp.com/distance/${origin}/${destination}`);
 
 //do whatever you want
 
@@ -62,11 +61,10 @@ const data = response.data;
     https://distancep.herokuapp.com/distance/
 
 ````javascript
-let addresses = ['04335000', '01311-000', '05606010', '23812310'];
-let mode = 'driving';
+const postcodes = ['04335000', '01311-000', '05606010', '23812310'];
+const mode = 'driving';
 
-const response = await axios.post(`https://api-get-distance.herokuapp.com/distance/`, {addresses,mode});
-const data = response.data;
+const {data} = await axios.post(`https://api-get-distance.herokuapp.com/distance/`, {postcodes, mode});
 
 //do whatever you want
 
