@@ -7,6 +7,7 @@
     "cors": "^2.8.5",
     "express": "^4.17.2",
     "express-rate-limit": "^6.4.0",
+    "ioredis": "^5.0.4",
     "puppeteer": "^13.0.1",
     "puppeteer-cluster": "^0.22.0"
   }
