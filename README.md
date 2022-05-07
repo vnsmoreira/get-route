@@ -136,6 +136,7 @@ const data = response.data;
     <li>Express.js</li>
     <li>Puppeteer</li>
     <li>Puppeteer-cluster</li>
+    <li>Redis</li>
     <li>axios</li>
 </ul>
 
@@ -143,7 +144,6 @@ const data = response.data;
 <ul>
     <li>viacep API</li>
     <li>google maps (direct query)</li>
-    
 </ul>
 
 
