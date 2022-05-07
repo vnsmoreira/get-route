@@ -21,10 +21,7 @@ const data = response.data;
 ### Response 
 ````javascript
 {
-  "distance": {
-    "OK": true,
-    "distance": 14.4 //always in km
-  },
+  "distance": 14.4 //always in km,
   "cepsInfo": [
     {
       "cep": "04335-000",
@@ -74,10 +71,7 @@ const data = response.data;
 ### Response 
 ````javascript
 {
-  "distance": {
-    "OK": true,
-    "distance": 2.677 //always in km
-  },
+  "distance": 2.677 //always in km,
   "cepsInfo": [
     {
       "cep": "04335-000",
