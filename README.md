@@ -158,4 +158,6 @@ Clone this repository and then run:
     npm start
 
 ### Deploying to Heroku
-<a href="https://www.youtube.com/watch?v=Kl7mqpAK-bk&t=130s"> Deploy puppeteer API to Heroku</a>
+<a href="https://www.youtube.com/watch?v=Kl7mqpAK-bk&t=130s"> How to deploy a puppeteer API to Heroku</a>
+
+**Remember to add the "Heroku Redis" add-on**
