@@ -1,18 +1,28 @@
 <h1 align="center"><img src="https://user-images.githubusercontent.com/76014502/166403918-7c8fea60-b2f0-4786-a9a5-ff5ad5729f94.png"/></h1>
 
-<div align="center">An easy-to-use and free API to calculate distance between multiple CEPs.</div>
+<div align="center">An easy-to-use and free API template to calculate distance between multiple CEPs.</div>
+
+## Setup
+
+### Running Localy
+
+Clone this repository and then run:
+
+    npm i
+    npm start
+
 
 ## How to use
 
 > GET
 
-    https://distancep.herokuapp.com/distance/CEP_ORIGIN/CEP_DESTINATION
+    http://localhost:3000/distance/CEP_ORIGIN/CEP_DESTINATION
 
 ````javascript
 const origin = '04335-000';
 const destination = '01311000';
 
-const response = await axios.get(`https://api-get-distance.herokuapp.com/distance/${origin}/${destination}`);
+const response = await axios.get(`http://localhost:3000/distance/${origin}/${destination}`);
 const data = response.data;
 
 //do whatever you want
@@ -56,13 +66,13 @@ const data = response.data;
 
 > POST
 
-    https://distancep.herokuapp.com/distance/
+    http://localhost:3000/distance/
 
 ````javascript
 const addresses = ['04335000', '01311-000', '05606010', '23812310'];
 const mode = 'driving';
 
-const response = await axios.post(`https://api-get-distance.herokuapp.com/distance/`, {addresses,mode});
+const response = await axios.post(`http://localhost:3000/distance/`, {addresses,mode});
 const data = response.data;
 
 //do whatever you want
@@ -145,19 +155,3 @@ const data = response.data;
     <li>viacep API</li>
     <li>google maps (direct query)</li>
 </ul>
-
-
-
-## Setup
-
-### Running Localy
-
-Clone this repository and then run:
-
-    npm i
-    npm start
-
-### Deploying to Heroku
-<a href="https://www.youtube.com/watch?v=Kl7mqpAK-bk&t=130s"> How to deploy a puppeteer API to Heroku</a>
-
-**Remember to add the "Heroku Redis" add-on**
