@@ -2,7 +2,7 @@
 
 export default async (req, res, next) => {
   const dataExtractor = {
-    GET: ({ query }) => ({ addresses: [query.addressA, query.addressB], mode: query.mode }),
+    GET: ({ query }) => ({ addresses: [query.origin, query.destination], mode: query.mode }),
     POST: ({ body }) => ({ addresses: body.addresses, mode: body.mode }),
   };
 
@@ -18,7 +18,7 @@ export default async (req, res, next) => {
   if (mode !== 'driving' && mode !== 'walking' && mode !== undefined) {
     return res.status(400).send({ error: '"mode" option should be either "driving" or "walking"' });
   }
-  
+
   //cache
   /* const formatPostCode = postcode => postcode.replaceAll('-', '');
   const routeKey = addresses.map(formatPostCode).join('/');
