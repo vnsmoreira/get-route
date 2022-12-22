@@ -1,36 +1,38 @@
-export default (req, res, next) => {
-  let addresses, mode;
+/* import cache from '#cache'; */
 
-  if (req.method == 'POST') {
-    addresses = req.body.addresses;
-    mode = req.body.mode;
-  } else {
-    addresses = [req.params.addressA, req.params.addressB];
-    mode = req.query.mode;
-  }
-
+export default async (req, res, next) => {
   const dataExtractor = {
-    GET: () => {
-
-    },
-    POST: () => {
-      
-    },
+    GET: ({ query }) => ({ addresses: [query.addressA, query.addressB], mode: query.mode }),
+    POST: ({ body }) => ({ addresses: body.addresses, mode: body.mode }),
   };
 
-  
+  const extractedData = dataExtractor[req.method](req);
+  const { addresses, mode } = extractedData;
 
-  const isNotArrayOfStrings = addresses.map(address => typeof address).some(type => type !== 'string');
+  const isArrayOfStrings = addresses.every(address => typeof address == 'string');
 
-  const isArrayOfStrings = addresses.every;
-
-  if (!Array.isArray(addresses) || isNotArrayOfStrings) {
+  if (!Array.isArray(addresses) || !isArrayOfStrings) {
     return res.status(400).send({ error: '"addresses" must be an array of strings' });
   }
 
   if (mode !== 'driving' && mode !== 'walking' && mode !== undefined) {
     return res.status(400).send({ error: '"mode" option should be either "driving" or "walking"' });
   }
+  
+  //cache
+  /* const formatPostCode = postcode => postcode.replaceAll('-', '');
+  const routeKey = addresses.map(formatPostCode).join('/');
+  const isCached = await cache.get(routeKey);
+
+  if (isCached) {
+    const { distance, cepsInfo } = isCached;
+
+    return res.send({ distance, cepsInfo });
+  } 
+
+  req.routeKey = routeKey; */
+
+  req.routeParameters = extractedData;
 
   next();
 };

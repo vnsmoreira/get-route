@@ -1,73 +1,30 @@
 /* import cache from '#cache'; */
 import scraper from '#puppeteer';
 import { getCepsInfo } from '#services/viacep';
-import { formatPostCode } from '../utils';
 
-const controller = {};
+const getDistanceResponse = async ({ addresses, mode }) => {
+  const promisesArray = await Promise.allSettled([scraper.getDistanceInKm(addresses, mode), getCepsInfo(addresses)]);
 
-const cluster = scraper.getCluster();
-const getDistance = async (addresses, mode) => await cluster.execute({ addresses, mode });
+  const [{ OK, distance }, cepsInfo] = promisesArray.map(promise => promise.value);
 
-controller.getDistance_POST = async (req, res) => {
+  return OK && cepsInfo ? { distance, cepsInfo } : null;
+};
+
+const distanceController = async (req, res) => {
   try {
-    const { addresses, mode } = req.body;
+    const distanceResponse = await getDistanceResponse(req.routeParameters);
 
-    /*  const routeKey = addresses.map(formatPostCode).join('/');
-    const isCached = await cache.get(routeKey);
-
-    if (isCached) {
-      const { distance, cepsInfo } = isCached;
-
-      return res.send({ distance, cepsInfo });
-    } */
-
-    const promisesArray = await Promise.allSettled([getDistance(addresses, mode), getCepsInfo(addresses)]);
-
-    const [{ distance }, cepsInfo] = promisesArray.map(promise => promise.value);
-
-    if (!distance) {
-      return res.status(400).send({ error: 'Could not get the distance, be sure to check the postcodes.' });
+    if (!distanceResponse) {
+      return res.status(400).send({ error: 'Could not retrieve the distance. Be sure to check the postcodes.' });
     }
 
-    res.send({ distance, cepsInfo });
+    res.send(distanceResponse);
 
-    return cache.set(routeKey, { distance, cepsInfo }, 86400);
+    /* return cache.set(req.routeKey, distanceResponse, 86400); */
   } catch (err) {
     console.log(err);
     return res.status(400).send({ error: 'Error getting distance' });
   }
 };
 
-controller.getDistance_GET = async (req, res) => {
-  try {
-    let { addressA, addressB } = req.params;
-    const { mode } = req.query;
-
-    const addresses = [addressA, addressB];
-
-    /* const routeKey = addresses.map(formatPostCode).join('/');
-    const isCached = await cache.get(routeKey);
-
-    if (isCached) {
-      const { distance, cepsInfo } = isCached;
-
-      return res.send({ distance, cepsInfo });
-    } */
-
-    const promisesArray = await Promise.allSettled([getDistance(addresses, mode), getCepsInfo(addresses)]);
-
-    const [{ distance }, cepsInfo] = promisesArray.map(promise => promise.value);
-
-    if (!distance) {
-      return res.status(400).send({ error: 'Could not get the distance, be sure to check the postcodes.' });
-    }
-
-    res.send({ distance, cepsInfo });
-
-    return cache.set(routeKey, { distance, cepsInfo }, 86400);
-  } catch (err) {
-    return res.status(400).send({ error: 'Error getting distance' });
-  }
-};
-
-export default controller;
+export default distanceController;

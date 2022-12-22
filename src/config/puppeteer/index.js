@@ -73,4 +73,10 @@ scraper.onClusterInitialize = async callback => {
 
 scraper.getCluster = () => cluster;
 
+scraper.getDistanceInKm = async (addresses, mode) => {
+  const clusterInstance = scraper.getCluster();
+
+  return await clusterInstance.execute({ addresses, mode });
+};
+
 export default scraper;
