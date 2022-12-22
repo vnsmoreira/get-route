@@ -16,13 +16,16 @@ Clone this repository and then run:
 
 > GET
 
-    http://localhost:3000/distance/CEP_ORIGIN/CEP_DESTINATION
+    http://localhost:3000/distance
 
 ````javascript
+const mode = 'driving'; // either 'driving' or 'walking'
 const origin = '04335-000';
 const destination = '01311000';
 
-const response = await axios.get(`http://localhost:3000/distance/${origin}/${destination}`);
+const params = { origin, destination };
+const response = await axios.get('http://localhost:3000/distance', { params });
+
 const data = response.data;
 
 //do whatever you want
@@ -61,18 +64,17 @@ const data = response.data;
 }
 
 ````
-<hr>
-<br></br>
+<hr/>
 
 > POST
 
-    http://localhost:3000/distance/
+    http://localhost:3000/distance 
 
 ````javascript
 const addresses = ['04335000', '01311-000', '05606010', '23812310'];
-const mode = 'driving';
+const mode = 'driving'; // either 'driving' or 'walking'
 
-const response = await axios.post(`http://localhost:3000/distance/`, {addresses,mode});
+const response = await axios.post(`http://localhost:3000/distance/`, { addresses, mode });
 const data = response.data;
 
 //do whatever you want
