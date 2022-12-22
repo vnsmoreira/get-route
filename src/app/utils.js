@@ -1,5 +1,1 @@
-const formatPostCode = postcode => postcode.replaceAll('-', '');
-
-module.exports = {
-  formatPostCode,
-};
+export const formatPostCode = postcode => postcode.replaceAll('-', '');

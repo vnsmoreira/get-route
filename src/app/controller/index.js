@@ -1,37 +1,32 @@
-const { getCluster } = require('../../config/puppeteer');
-const getCepsInfo = require('../../services/viacep');
-const cache = require('../../config/cache');
-const _ = require('../utils');
+/* import cache from '#cache'; */
+import scraper from '#puppeteer';
+import { getCepsInfo } from '#services/viacep';
+import { formatPostCode } from '../utils';
 
 const controller = {};
 
-const cluster = getCluster();
+const cluster = scraper.getCluster();
 const getDistance = async (addresses, mode) => await cluster.execute({ addresses, mode });
 
 controller.getDistance_POST = async (req, res) => {
   try {
     const { addresses, mode } = req.body;
 
-    const routeKey = addresses.map(_.formatPostCode).join('/');
+    /*  const routeKey = addresses.map(formatPostCode).join('/');
     const isCached = await cache.get(routeKey);
 
     if (isCached) {
       const { distance, cepsInfo } = isCached;
 
       return res.send({ distance, cepsInfo });
-    }
+    } */
 
-    const promisesArray = await Promise.allSettled([
-      getDistance(addresses, mode),
-      getCepsInfo(addresses),
-    ]);
+    const promisesArray = await Promise.allSettled([getDistance(addresses, mode), getCepsInfo(addresses)]);
 
     const [{ distance }, cepsInfo] = promisesArray.map(promise => promise.value);
 
     if (!distance) {
-      return res
-        .status(400)
-        .send({ error: 'Could not get the distance, be sure to check the postcodes.' });
+      return res.status(400).send({ error: 'Could not get the distance, be sure to check the postcodes.' });
     }
 
     res.send({ distance, cepsInfo });
@@ -50,26 +45,21 @@ controller.getDistance_GET = async (req, res) => {
 
     const addresses = [addressA, addressB];
 
-    const routeKey = addresses.map(_.formatPostCode).join('/');
+    /* const routeKey = addresses.map(formatPostCode).join('/');
     const isCached = await cache.get(routeKey);
 
     if (isCached) {
       const { distance, cepsInfo } = isCached;
 
       return res.send({ distance, cepsInfo });
-    }
+    } */
 
-    const promisesArray = await Promise.allSettled([
-      getDistance(addresses, mode),
-      getCepsInfo(addresses),
-    ]);
+    const promisesArray = await Promise.allSettled([getDistance(addresses, mode), getCepsInfo(addresses)]);
 
     const [{ distance }, cepsInfo] = promisesArray.map(promise => promise.value);
 
     if (!distance) {
-      return res
-        .status(400)
-        .send({ error: 'Could not get the distance, be sure to check the postcodes.' });
+      return res.status(400).send({ error: 'Could not get the distance, be sure to check the postcodes.' });
     }
 
     res.send({ distance, cepsInfo });
@@ -80,4 +70,4 @@ controller.getDistance_GET = async (req, res) => {
   }
 };
 
-module.exports = controller;
+export default controller;

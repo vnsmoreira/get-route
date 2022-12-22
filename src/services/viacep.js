@@ -1,4 +1,4 @@
-const axios = require('axios').default;
+import axios from 'axios';
 
 const getCepsInfo = async addresses => {
   const getCepInfo = async address => {
@@ -14,4 +14,4 @@ const getCepsInfo = async addresses => {
   return cepsInfo;
 };
 
-module.exports = getCepsInfo;
+export { getCepsInfo };

@@ -1,6 +1,7 @@
 {
+  "type": "module",
   "scripts": {
-    "start": "node src/index.js"
+    "start": "node --experimental-specifier-resolution=node ./src/server.js"
   },
   "dependencies": {
     "axios": "^0.27.2",
@@ -10,5 +11,14 @@
     "ioredis": "^5.0.4",
     "puppeteer": "^13.0.1",
     "puppeteer-cluster": "^0.22.0"
+  },
+  "imports": {
+    "#cache": "./src/config/cache",
+    "#limiter": "./src/config/rate-limit",
+    "#puppeteer": "./src/config/puppeteer/index.js",
+    "#controller": "./src/app/controller",
+    "#middleware": "./src/app/middleware",
+    "#routes": "./src/app/routes",
+    "#services/*": "./src/services/*"
   }
 }

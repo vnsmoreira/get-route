@@ -1,5 +1,5 @@
-const { Cluster } = require('puppeteer-cluster');
-const { getDistance } = require('./task');
+import { Cluster } from 'puppeteer-cluster';
+import { getDistance } from './task';
 
 const puppeteerOptions = {
   args: [
@@ -44,9 +44,9 @@ const puppeteerOptions = {
 
 let cluster = null;
 
-let methods = {};
+let scraper = {};
 
-methods.initializeCluster = async () => {
+scraper.initializeCluster = async () => {
   cluster = await Cluster.launch({
     concurrency: Cluster.CONCURRENCY_PAGE,
     maxConcurrency: 100,
@@ -62,15 +62,15 @@ methods.initializeCluster = async () => {
   return cluster;
 };
 
-methods.onClusterInitialize = async callback => {
+scraper.onClusterInitialize = async callback => {
   try {
-    await methods.initializeCluster();
+    await scraper.initializeCluster();
     callback();
   } catch (error) {
     console.log(error);
   }
 };
 
-methods.getCluster = () => cluster;
+scraper.getCluster = () => cluster;
 
-module.exports = methods;
+export default scraper;

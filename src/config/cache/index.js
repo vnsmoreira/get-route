@@ -1,4 +1,4 @@
-const Redis = require('ioredis');
+/* import Redis from 'ioredis';
 const redis = new Redis(process.env.REDIS_URL);
 
 const cache = {};
@@ -13,4 +13,5 @@ cache.get = async key => {
   return value ? JSON.parse(value) : null;
 };
 
-module.exports = cache;
+export default cache;
+ */

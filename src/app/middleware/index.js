@@ -1,4 +1,4 @@
-module.exports = (req, res, next) => {
+export default (req, res, next) => {
   let addresses, mode;
 
   if (req.method == 'POST') {
@@ -9,9 +9,20 @@ module.exports = (req, res, next) => {
     mode = req.query.mode;
   }
 
-  const isNotArrayOfStrings = addresses
-    .map(address => typeof address)
-    .some(type => type !== 'string');
+  const dataExtractor = {
+    GET: () => {
+
+    },
+    POST: () => {
+      
+    },
+  };
+
+  
+
+  const isNotArrayOfStrings = addresses.map(address => typeof address).some(type => type !== 'string');
+
+  const isArrayOfStrings = addresses.every;
 
   if (!Array.isArray(addresses) || isNotArrayOfStrings) {
     return res.status(400).send({ error: '"addresses" must be an array of strings' });
