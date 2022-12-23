@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 
 mongoose.set('strictQuery', true);
 
-async function onMongoConnect() {
+async function mongoConnect() {
   const mongoDBUri = process.env.MONGO_DB_URI;
 
   try {
@@ -15,4 +15,4 @@ async function onMongoConnect() {
   }
 }
 
-export default onMongoConnect;
+export default mongoConnect;
