@@ -1,12 +1,10 @@
 import 'dotenv/config';
 import { app } from './app';
-import scraper from '#puppeteer';
+import waitForRequirements from './requirements';
 
 const port = process.env.PORT || 3000;
 
-const startServer = () => app.listen(port);
-
-scraper.onClusterInitialize(() => {
-  startServer();
-  console.log('Running on port: ', port);
+await waitForRequirements(() => {
+  app.listen(port);
+  console.info('[app] running on port: ' + port);
 });
