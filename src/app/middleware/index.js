@@ -1,21 +1,26 @@
-/* import cache from '#cache'; */
+import cache from '#cache';
 
 export default async (req, res, next) => {
   const dataExtractor = {
-    GET: ({ query }) => ({ addresses: [query.origin, query.destination], mode: query.mode }),
-    POST: ({ body }) => ({ addresses: body.addresses, mode: body.mode }),
+    GET: ({ query: { origin, destination, mode } }) => {
+      return { addresses: [origin, destination], mode: mode || 'driving' };
+    },
+    POST: ({ body: { addresses, mode } }) => {
+      return { addresses, mode: mode || 'driving' };
+    },
   };
 
-  const extractedData = dataExtractor[req.method](req);
-  const { addresses, mode } = extractedData;
+  const { addresses, mode } = dataExtractor[req.method](req);
 
-  const isArrayOfStrings = addresses.every(address => typeof address == 'string');
+  const isAddressesAnArrayOfStrings = Array.isArray(addresses) && addresses.every(address => typeof address == 'string');
 
-  if (!Array.isArray(addresses) || !isArrayOfStrings) {
+  if (!isAddressesAnArrayOfStrings) {
     return res.status(400).send({ error: '"addresses" must be an array of strings' });
   }
 
-  if (mode !== 'driving' && mode !== 'walking' && mode !== undefined) {
+  const validModes = ['driving', 'walking'];
+
+  if (!validModes.includes(mode)) {
     return res.status(400).send({ error: '"mode" option should be either "driving" or "walking"' });
   }
 
