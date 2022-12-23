@@ -23,7 +23,7 @@ const mode = 'driving'; // either 'driving' or 'walking'
 const origin = '04335-000';
 const destination = '01311000';
 
-const params = { origin, destination };
+const params = { origin, destination, mode };
 const response = await axios.get('http://localhost:3000/distance', { params });
 
 const data = response.data;
