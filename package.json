@@ -10,17 +10,20 @@
     "express": "^4.17.2",
     "express-rate-limit": "^6.4.0",
     "ioredis": "^5.0.4",
+    "mongoose": "6.8.1",
     "node-cache": "5.1.2",
     "puppeteer": "^13.0.1",
     "puppeteer-cluster": "^0.22.0"
   },
   "imports": {
-    "#cache": "./src/config/cache",
-    "#limiter": "./src/config/rate-limit",
-    "#puppeteer": "./src/config/puppeteer/index.js",
     "#controller": "./src/app/controller",
     "#middleware": "./src/app/middleware",
     "#routes": "./src/app/routes",
+    "#database": "./src/database",
+    "#models/*": "./src/app/models/*",
+    "#cache": "./src/config/cache",
+    "#limiter": "./src/config/rate-limit",
+    "#puppeteer": "./src/config/puppeteer/index.js",
     "#services/*": "./src/services/*"
   }
 }
