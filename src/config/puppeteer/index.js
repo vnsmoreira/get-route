@@ -46,32 +46,27 @@ let cluster = null;
 
 let scraper = {};
 
+scraper.getCluster = () => cluster;
+
 scraper.initializeCluster = async () => {
-  cluster = await Cluster.launch({
-    concurrency: Cluster.CONCURRENCY_PAGE,
-    maxConcurrency: 100,
-    puppeteerOptions,
-  });
-
-  await cluster.task(getDistance);
-
-  await cluster.execute({ addresses: ['01311000', '04335000'] });
-
-  console.log('[app] cluster initialized');
-
-  return cluster;
-};
-
-scraper.onClusterInitialize = async callback => {
   try {
-    await scraper.initializeCluster();
-    callback();
+    cluster = await Cluster.launch({
+      concurrency: Cluster.CONCURRENCY_PAGE,
+      maxConcurrency: 100,
+      puppeteerOptions,
+      monitor: true,
+    });
+
+    await cluster.task(getDistance);
+
+    await cluster.execute({ addresses: ['04335000', '04336000'] });
+
+    return { success: true };
   } catch (error) {
     console.log(error);
+    return { success: false };
   }
 };
-
-scraper.getCluster = () => cluster;
 
 scraper.getDistanceInKm = async (addresses, mode) => {
   const clusterInstance = scraper.getCluster();
