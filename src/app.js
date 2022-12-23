@@ -9,10 +9,9 @@ const app = express();
 
 app.use(cors());
 app.use(limiter);
-app.use(middleware);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use('/distance', routes);
+app.use('/distance', middleware, routes);
 
 export { app };
