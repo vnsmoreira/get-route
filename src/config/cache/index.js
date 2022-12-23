@@ -1,17 +1,4 @@
-/* import Redis from 'ioredis';
-const redis = new Redis(process.env.REDIS_URL);
-
-const cache = {};
-
-cache.set = (key, value, expirationMs) => {
-  return redis.set(key, JSON.stringify(value), 'EX', expirationMs);
-};
-
-cache.get = async key => {
-  const value = await redis.get(key);
-
-  return value ? JSON.parse(value) : null;
-};
+//import cache from './redis';
+import cache from './node-cache';
 
 export default cache;
- */

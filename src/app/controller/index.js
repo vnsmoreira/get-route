@@ -1,4 +1,4 @@
-/* import cache from '#cache'; */
+import cache from '#cache';
 import scraper from '#puppeteer';
 import { getCepsInfo } from '#services/viacep';
 
@@ -20,7 +20,7 @@ const distanceController = async (req, res) => {
 
     res.send(distanceResponse);
 
-    /* return cache.set(req.routeKey, distanceResponse, 86400); */
+    return cache.set(req.routeKey, distanceResponse);
   } catch (err) {
     console.log(err);
     return res.status(400).send({ error: 'Error getting distance' });

@@ -20,19 +20,18 @@ export default async (req, res, next) => {
   }
 
   //cache
-  /* const formatPostCode = postcode => postcode.replaceAll('-', '');
-  const routeKey = addresses.map(formatPostCode).join('/');
+  const formatPostCode = postcode => postcode.replaceAll('-', '');
+  const routeKey = addresses.map(formatPostCode).join('/').concat(mode);
   const isCached = await cache.get(routeKey);
 
   if (isCached) {
     const { distance, cepsInfo } = isCached;
 
     return res.send({ distance, cepsInfo });
-  } 
+  }
 
-  req.routeKey = routeKey; */
-
-  req.routeParameters = extractedData;
+  req.routeKey = routeKey;
+  req.routeParameters = { addresses, mode };
 
   next();
 };
