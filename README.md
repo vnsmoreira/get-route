@@ -2,11 +2,16 @@
 
 <div align="center">A simple utility to calculate route between multiple CEPs.</div>
 
+<br/>
+
+> :warning: This dependency wont work on **browser** due to CORS policy, use [GetRoute API](https://github.com/vnsmoreira/api-get-route) instead.
+
 ## Installation
 
     npm i get-route
 
 ## How to use
+
 ````javascript
 import getRoute from 'get-route';
 ...
