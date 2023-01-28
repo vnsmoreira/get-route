@@ -69,7 +69,7 @@ const data = response.data;
 const ceps = ['04335000', '01311-000', '05606010', '23812310'];
 const mode = 'driving'; // either 'driving' or 'walking'
 
-const response = await axios.post('https://api-get-route.herokuapp.com', { addresses, mode });
+const response = await axios.post('https://api-get-route.herokuapp.com', { ceps, mode });
 
 const data = response.data;
 //do whatever you want
