@@ -1,10 +1,8 @@
-import 'dotenv/config';
-import { app } from './app';
-import waitForRequirements from './requirements';
+require('dotenv/config');
+const { app } = require('./app');
 
 const port = process.env.PORT || 3000;
 
-await waitForRequirements(() => {
-  app.listen(port);
+app.listen(port, () => {
   console.info('[app] running on port: ' + port);
 });

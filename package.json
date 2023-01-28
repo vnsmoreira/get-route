@@ -1,29 +1,14 @@
 {
-  "type": "module",
   "scripts": {
-    "start": "node --experimental-specifier-resolution=node ./src/server.js"
+    "start": "node ./src/server.js"
   },
   "dependencies": {
-    "axios": "^0.27.2",
-    "cors": "^2.8.5",
+    "axios": "1.2.5",
+    "cors": "2.8.5",
     "dotenv": "16.0.3",
-    "express": "^4.17.2",
-    "express-rate-limit": "^6.4.0",
-    "ioredis": "^5.0.4",
-    "mongoose": "6.8.1",
-    "node-cache": "5.1.2",
-    "puppeteer": "^13.0.1",
-    "puppeteer-cluster": "^0.22.0"
-  },
-  "imports": {
-    "#controller": "./src/app/controller",
-    "#middleware": "./src/app/middleware",
-    "#routes": "./src/app/routes",
-    "#database": "./src/database",
-    "#models/*": "./src/app/models/*",
-    "#cache": "./src/config/cache",
-    "#limiter": "./src/config/rate-limit",
-    "#puppeteer": "./src/config/puppeteer/index.js",
-    "#services/*": "./src/services/*"
+    "express": "4.18.2",
+    "express-rate-limit": "6.7.0",
+    "get-route": "1.0.5",
+    "node-cache": "5.1.2"
   }
 }

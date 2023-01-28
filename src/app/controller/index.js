@@ -1,13 +1,13 @@
-import cache from '#cache';
-import scraper from '#puppeteer';
-import { getCepsInfo } from '#services/viacep';
+const cache = require('../../config/cache');
+const getRoute = require('get-route');
+const getCepsInfo = require('../../services/viacep');
 
-const getDistanceResponse = async ({ addresses, mode }) => {
-  const promisesArray = await Promise.allSettled([scraper.getDistanceInKm(addresses, mode), getCepsInfo(addresses)]);
+const getDistanceResponse = async ({ addresses: ceps, mode }) => {
+  const promisesArray = await Promise.allSettled([getRoute(ceps, mode), getCepsInfo(ceps)]);
 
-  const [{ OK, distance }, cepsInfo] = promisesArray.map(promise => promise.value);
+  const [route, cepsInfo] = promisesArray.map(promise => promise.value);
 
-  return OK && cepsInfo ? { distance, cepsInfo } : null;
+  return route.ok && cepsInfo ? { ...route, cepsInfo } : null;
 };
 
 const distanceController = async (req, res) => {
@@ -27,4 +27,4 @@ const distanceController = async (req, res) => {
   }
 };
 
-export default distanceController;
+module.exports = distanceController;

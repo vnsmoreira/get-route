@@ -1,4 +1,4 @@
-//import cache from './redis';
-import cache from './node-cache';
+//const cache = require('./redis');
+const cache = require('./node-cache');
 
-export default cache;
+module.exports = cache;

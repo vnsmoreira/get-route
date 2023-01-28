@@ -1,17 +1,17 @@
-import axios from 'axios';
+const axios = require('axios');
 
-const getCepsInfo = async addresses => {
-  const getCepInfo = async address => {
-    const response = await axios.get(`https://viacep.com.br/ws/${address}/json/`);
-    const adressInfo = response.data;
+const getCepsInfo = async ceps => {
+  const getCepInfo = async cep => {
+    const response = await axios.get(`https://viacep.com.br/ws/${cep}/json/`);
+    const cepInfo = response.data;
 
-    return adressInfo;
+    return cepInfo;
   };
 
-  const promisesArray = await Promise.allSettled(addresses.map(getCepInfo));
+  const promisesArray = await Promise.allSettled(ceps.map(getCepInfo));
   const cepsInfo = promisesArray.map(response => response.value);
 
   return cepsInfo;
 };
 
-export { getCepsInfo };
+module.exports = getCepsInfo;

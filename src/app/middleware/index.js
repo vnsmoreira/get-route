@@ -1,6 +1,6 @@
-import cache from '#cache';
+const cache = require('.././../config/cache');
 
-export default async (req, res, next) => {
+module.exports = async (req, res, next) => {
   const dataExtractor = {
     GET: ({ query: { origin, destination, mode } }) => {
       return { addresses: [origin, destination], mode: mode || 'driving' };
@@ -30,9 +30,9 @@ export default async (req, res, next) => {
   const isCached = await cache.get(routeKey);
 
   if (isCached) {
-    const { distance, cepsInfo } = isCached;
+    const cachedResponse = isCached;
 
-    return res.send({ distance, cepsInfo });
+    return res.send(cachedResponse);
   }
 
   req.routeKey = routeKey;
