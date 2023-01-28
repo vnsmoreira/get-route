@@ -4,7 +4,7 @@
 
 <br/>
 
-> :warning: This dependency wont work on **browser** due to CORS policy, use [GetRoute API](https://github.com/vnsmoreira/api-get-route) instead.
+> :warning: If you want to use this on **browser**, use [GetRoute API](https://github.com/vnsmoreira/api-get-route) instead.
 
 ## Installation
 
