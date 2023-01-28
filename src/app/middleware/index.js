@@ -1,32 +1,30 @@
 const cache = require('.././../config/cache');
+const { isArrayOfCeps, isModeValid } = require('../../validation');
 
 module.exports = async (req, res, next) => {
   const dataExtractor = {
     GET: ({ query: { origin, destination, mode } }) => {
-      return { addresses: [origin, destination], mode: mode || 'driving' };
+      return { ceps: [origin, destination], mode: mode || 'driving' };
     },
-    POST: ({ body: { addresses, mode } }) => {
-      return { addresses, mode: mode || 'driving' };
+    POST: ({ body: { ceps, mode } }) => {
+      return { ceps, mode: mode || 'driving' };
     },
   };
 
-  const { addresses, mode } = dataExtractor[req.method](req);
+  const { ceps, mode } = dataExtractor[req.method](req);
 
-  const isAddressesAnArrayOfStrings = Array.isArray(addresses) && addresses.every(address => typeof address == 'string');
-
-  if (!isAddressesAnArrayOfStrings) {
-    return res.status(400).send({ error: '"addresses" must be an array of strings' });
+  if (!isArrayOfCeps(ceps)) {
+    return res.status(400).send({ error: 'Array de CEPs inválido! \nLembre-se de passar uma lista (Array) de CEPs (string).' });
   }
 
-  const validModes = ['driving', 'walking'];
-
-  if (!validModes.includes(mode)) {
-    return res.status(400).send({ error: '"mode" option should be either "driving" or "walking"' });
+  if (!isModeValid(mode)) {
+    return res.status(400).send({ error: 'Modo inválido! \nModos válidos: "driving" ou "walking".' });
   }
+
+  const cepsArray = ceps.map(cep => cep.replace('-', ''));
 
   //cache
-  const formatPostCode = postcode => postcode.replaceAll('-', '');
-  const routeKey = addresses.map(formatPostCode).join('/').concat(mode);
+  const routeKey = cepsArray.join('/').concat('-', mode);
   const isCached = await cache.get(routeKey);
 
   if (isCached) {
@@ -36,7 +34,7 @@ module.exports = async (req, res, next) => {
   }
 
   req.routeKey = routeKey;
-  req.routeParameters = { addresses, mode };
+  req.routeParameters = { ceps: cepsArray, mode };
 
   next();
 };

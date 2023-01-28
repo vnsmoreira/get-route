@@ -2,29 +2,27 @@ const cache = require('../../config/cache');
 const getRoute = require('get-route');
 const getCepsInfo = require('../../services/viacep');
 
-const getDistanceResponse = async ({ addresses: ceps, mode }) => {
+const getRouteResponse = async ({ ceps, mode }) => {
   const promisesArray = await Promise.allSettled([getRoute(ceps, mode), getCepsInfo(ceps)]);
 
-  const [route, cepsInfo] = promisesArray.map(promise => promise.value);
+  const [route, info] = promisesArray.map(promise => promise.value);
 
-  return route.ok && cepsInfo ? { ...route, cepsInfo } : null;
+  return route.ok && info ? { ...route, info } : null;
 };
 
-const distanceController = async (req, res) => {
+const routeController = async (req, res) => {
   try {
-    const distanceResponse = await getDistanceResponse(req.routeParameters);
+    const routeResponse = await getRouteResponse(req.routeParameters);
 
-    if (!distanceResponse) {
-      return res.status(400).send({ error: 'Could not retrieve the distance. Be sure to check the postcodes.' });
-    }
+    if (!routeResponse) throw new Error();
 
-    res.send(distanceResponse);
+    res.send(routeResponse);
 
-    return cache.set(req.routeKey, distanceResponse);
+    return cache.set(req.routeKey, routeResponse);
   } catch (err) {
     console.log(err);
-    return res.status(400).send({ error: 'Error getting distance' });
+    return res.status(400).send({ error: 'Não foi possível obter a rota! \nVerifique se os CEPs são válidos.' });
   }
 };
 
-module.exports = distanceController;
+module.exports = routeController;
