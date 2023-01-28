@@ -12,6 +12,6 @@ app.use(limiter);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use('/distance', middleware, routes);
+app.use('/', middleware, routes);
 
 module.exports = { app };

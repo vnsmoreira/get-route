@@ -1,6 +1,7 @@
 {
   "scripts": {
-    "start": "node ./src/server.js"
+    "preinstall": "npm i -g pm2",
+    "start": "pm2-runtime start src/server.js -i 1"
   },
   "dependencies": {
     "axios": "1.2.5",
