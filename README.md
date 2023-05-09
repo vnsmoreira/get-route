@@ -154,7 +154,7 @@ const data = response.data;
 
 ## Setup
 
-### Running Localy
+### Running Locally
 
 Clone this repository and then run:
 
