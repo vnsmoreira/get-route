@@ -170,3 +170,7 @@ Clone this repository and then run:
     <li>GetRoute</li>
     <li>NodeCache</li>
 </ul>
+
+<a href="https://commentts.netlify.app/vnsmoreira/api-authentication">
+<img src="https://github-comments.herokuapp.com/vnsmoreira/api-authentication"/>
+</a>
