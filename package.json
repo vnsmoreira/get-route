@@ -1,0 +1,28 @@
+{
+  "author": "vnsmoreira",
+  "type": "commonjs",
+  "name": "get-route",
+  "version": "1.0.5",
+  "description": "Retrieve route (distance and time) between multiple CEPs.",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vnsmoreira/get-route.git"
+  },
+  "keywords": [
+    "cep",
+    "ceps",
+    "brazil",
+    "distance calculator",
+    "route calculator",
+    "route distance calculator",
+    "route time calculator"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "axios": "1.2.2"
+  }
+}
