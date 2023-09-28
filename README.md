@@ -4,7 +4,7 @@
 
 <br/>
 
-> :warning: If you want to use this on **browser**, use [GetRoute API](https://github.com/vnsmoreira/api-get-route) instead.
+> :warning: Not compatible with Browsers due to CORS Policy.
 
 ## Installation
 
