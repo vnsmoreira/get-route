@@ -43,9 +43,10 @@ console.log(response);
 
 ### Arguments
 
-| argument | required | default   |         accepted values       |
+| argument | required | default   |type|
 |----------|----------|-----------|-------------------------------|
-| addresses| true     | none      | array of addresses            |
+| origin   | true     | none      |string|
+| destination| true   | none      |string|
 
 
 ### Response
