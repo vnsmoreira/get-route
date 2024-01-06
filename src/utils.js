@@ -17,6 +17,6 @@ const getIndicesOf = (searchStr, str, caseSensitive) => {
   return indices;
 };
 
-const cleanCeps = ceps => ceps.map(cep => cep.replace('-', ''));
+const isValidIndexes = (start, end) => [start, end].every((x) => x > -1);
 
-module.exports = { getIndicesOf, cleanCeps };
+module.exports = { getIndicesOf, isValidIndexes };

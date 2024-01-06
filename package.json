@@ -2,11 +2,11 @@
   "author": "vnsmoreira",
   "type": "commonjs",
   "name": "get-route",
-  "version": "1.0.5",
-  "description": "Retrieve route (distance and time) between multiple CEPs.",
+  "version": "2.0.0",
+  "description": "Retrieve route (distance and time) between multiple addresses.",
   "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node src/index.js"
   },
   "repository": {
     "type": "git",
