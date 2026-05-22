@@ -1,10 +1,12 @@
+> ⚠️ This project is archived and no longer maintained.
+
+> It does not work anymore and is kept here for historical reference only.
+
 <h1 align="center"><img src="https://user-images.githubusercontent.com/76014502/213812867-d5169761-aaa0-4105-8fe9-a171ba5bf4c3.png"/></h1>
 
 <div align="center">A simple utility to calculate route between addresses.</div>
 
 <br/>
-
-> :warning: Not compatible with Browsers due to CORS Policy.
 
 ## Installation
 
